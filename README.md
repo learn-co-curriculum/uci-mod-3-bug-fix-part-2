@@ -42,8 +42,8 @@ calc = TotalCostCalculator.new("A paradise in Barbados", 250000, 6.5, 5)
 puts calc.total_loan_cost
 ```
 
-Most people would not regard this code as fun to debug. You might have seen the
-problem instantly, but most reasonable programmers find `total_loan_cost`'s
+This code is not easy to debug. While you might get lucky and see the
+problem instantly, most reasonable programmers find `total_loan_cost`'s
 logic difficult to reason about. To fix the bug, the implementation of
 `total_loan_cost` should look like:
 
@@ -52,14 +52,15 @@ logic difficult to reason about. To fix the bug, the implementation of
 ```
 
 The `@rate` variable needs to be divided by 100 (to get a decimal) and then
-_again_ by the number of months in a year.
+_again_ by the number of months in a year. But even here, the _correct_ code
+is still really un-fun to read.
 
 This code is now no longer _broken_, but it is not _good code_.  It's _correct_
 but it's not maintainable or readable. It's hard to talk about and verify the
-sub-calculations in the `total_loan_cost` calculation. We have to repeatedly do
-the `@rate / 100 / 12` calculation. Some programmers might wonder why not
-simply say `@rate / 1200`? Determining the order of operations isn't exactly
-friendly here either.
+sub-calculations in the `total_loan_cost` calculation. We do
+the `@rate / 100 / 12` calculation several times. Determining the order of operations isn't exactly
+friendly here either. All these bits of friction add up to code that's hard
+to work with: bad code.
 
 ### Apply the On-Call Developer Test
 
@@ -74,29 +75,6 @@ Do you think you can do the **one** edit required to make this code work?
 
 Most programmers would not have a high confidence level &mdash; even those who
 have been writing code for decades!
-
-Here's the corrected code. We try not to **not** write code like this, even
-though it is _correct_:
-
-```ruby
-class MortgageCalculator
-  attr_reader :description, :cost
-
-  def initialize(description="A sun-drenched paradise", cost=325000, rate=0.02, mortgage_years)
-    @description = description
-    @cost = cost
-    @rate = rate
-    @term = 12 * mortgage_years
-  end
-
-  def total_loan_cost
-    @tlc ||= ((@rate / 100 / 12 * @cost) / (1 - ( 1 + (@rate  / 100 / 12) )**( @term  * -1)) ) * @term
-  end
-end
-
-x = MortgageCalculator.new("A paradise in Barbados", 250000, 6.5, 5)
-p x.total_loan_cost #=> 293492.22328093013
-```
 
 ## Broken and Easy to Read
 
