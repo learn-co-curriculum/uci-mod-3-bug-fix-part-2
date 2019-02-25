@@ -1,4 +1,4 @@
-# Title
+# Bug Fix Lab (Part II)
 
 ## Learning Goals
 
@@ -71,7 +71,7 @@ support on a holiday. It's 2 a.m. You have enough signal and battery in your
 laptop and phone for one change to this file to fix the bug and save the day.
 Do you think you can do the **one** edit required to make this code work?
 
-**Ulp**
+![Sweaty Ren](https://media.giphy.com/media/1O43UNtta63S5KLLcK/giphy.gif)
 
 Most programmers would not have a high confidence level &mdash; even those who
 have been writing code for decades!
