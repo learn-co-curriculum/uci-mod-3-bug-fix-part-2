@@ -9,9 +9,9 @@
 
 The following statements might seem strange, but they are true:
 
-* Correct code can be _bad_.
-* Incorrect code can be _well-written_
-* Sometimes _well-written_ but _incorrect_ code is *better* code than _correct_
+- Correct code can still be _bad_.
+- Incorrect code can be _well-written_
+- Sometimes _well-written_ but _incorrect_ code is _better_ code than _correct_
   code
 
 As a programmer, we have to try to create code that is both _correct_ **and**
@@ -55,12 +55,11 @@ The `@rate` variable needs to be divided by 100 (to get a decimal) and then
 _again_ by the number of months in a year. But even here, the _correct_ code
 is still really un-fun to read.
 
-This code is now no longer _broken_, but it is not _good code_.  It's _correct_
+This code is now no longer _broken_, but it is not _good code_. It's _correct_
 but it's not maintainable or readable. It's hard to talk about and verify the
-sub-calculations in the `total_loan_cost` calculation. We do
-the `@rate / 100 / 12` calculation several times. Determining the order of operations isn't exactly
-friendly here either. All these bits of friction add up to code that's hard
-to work with: bad code.
+sub-calculations in the `total_loan_cost` calculation. We do the `@rate / 100 / 12` calculation several times. Determining the order of operations isn't exactly
+friendly here either. All these bits of friction add up to code that's hard to
+work with: bad code.
 
 ### Apply the On-Call Developer Test
 
@@ -113,7 +112,7 @@ end
 
 x = MortgageCalculator.new("A paradise in Barbados", 250000, 6.5, 5)
 p x.total_loan_cost #=> 97500000.0
-````
+```
 
 Using a process (which we'll cover in another lesson) we can see that the
 inputs to `total_loan_cost` are `numerator`, `denominator` and,
@@ -124,7 +123,7 @@ code says that we're going to multiply the `@cost` of the property by a
 `@rate`, a fraction.
 
 Before we print out that value (or use a debugging tool to stop execution),
-let's think about what we *expect* the return value to be.
+let's think about what we _expect_ the return value to be.
 
 - What do you expect `numerator` to look like?
 - Is it a `Float` or an `Integer`? It should be a rate, so it should be a `Float`.
@@ -165,7 +164,7 @@ end
 
 x = MortgageCalculator.new("A paradise in Barbados", 250000, 6.5, 5)
 p x.total_loan_cost #=> 97500000.0
-````
+```
 
 The output is:
 
@@ -176,13 +175,13 @@ The output is:
 ```
 
 Wait a second! This does **not** match our expectations! We're way off! Our bug
-_has_ to be here.  If we review the given formula, we see that the expectation
+_has_ to be here. If we review the given formula, we see that the expectation
 is that the rate is expressed as a percentage, converted to decimal, divided by
 the 12 months of the year.
 
-Debugging and fixing well-structured, well-written code is clear.  To correct
+Debugging and fixing well-structured, well-written code is clear. To correct
 it is simple and makes simple code even simpler. We'll change the `@rate`
-instance variable to be divided by `(100 * 12)` from the very start.  We'll
+instance variable to be divided by `(100 * 12)` from the very start. We'll
 also change the variable name so that it's even clearer that we're talking
 about a rate per month.
 
@@ -224,7 +223,7 @@ end
 
 x = MortgageCalculator.new("A paradise in Barbados", 250000, 6.5, 5)
 p x.total_loan_cost #=> 293492.22328093013
-````
+```
 
 ## The Big Picture
 
